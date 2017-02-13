@@ -15,9 +15,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 	private int setnum=21;
 	private boolean play = false;
 	private int score=0;
-	private int totalBricks=setnum;
+	private int Bricks=setnum;
 	private Timer timer;
-	private int delay = 11 ;//ball speed#########################################################################################important
+	private int speed= 8 ;//ball speed#########################################################################################important
 	private int playerX=310;
 	private int ballposX=120;
 	private int ballposY=350;
@@ -31,7 +31,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
-		timer = new Timer(delay,this);
+		timer = new Timer(speed,this);
 		timer.start();
 		
 	}
@@ -59,13 +59,13 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 		g.setColor(Color.yellow);
 		g.fillOval(ballposX,ballposY,20,20);
 		
-		if(totalBricks<=0){
+		if(Bricks<=0){
 			play=false;
 			ballXdir=0;
 			ballYdir=0;
-			g.setColor(Color.RED);
+			g.setColor(Color.YELLOW);
 			g.setFont(new Font("serif",Font.BOLD, 30));
-			g.drawString("You Won", 260, 300);
+			g.drawString("You Won"+" "+ score, 260, 300);
 			
 			g.setFont(new Font("serif",Font.BOLD, 20));
 			g.drawString("Press the Spacebar to restart", 230, 350);
@@ -75,9 +75,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 			play=false;
 					ballXdir=0;
 					ballYdir=0;
-					g.setColor(Color.RED);
+					g.setColor(Color.YELLOW);
 					g.setFont(new Font("serif",Font.BOLD, 30));
-					g.drawString("Game over, Score:"+score, 190, 300);
+					g.drawString("Game over, Score:"+" "+ score, 190, 300);
 					
 					g.setFont(new Font("serif",Font.BOLD, 20));
 					g.drawString("Press the Spacebar to restart", 230, 350);
@@ -113,7 +113,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 					
 					if(ballRect.intersects(brickRect)){
 						map.setBrickValue(0, i, j);
-						totalBricks--;
+						Bricks--;
 						score+=5;
 						
 						if(ballposX+19<=brickRect.x || ballposX +1 >= brickRect.x +brickRect.width){
@@ -194,7 +194,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 				ballYdir=-2;
 				playerX=310;
 				score=0;
-				totalBricks=setnum;
+				Bricks=setnum;
 				map = new MapGenerator(3,7);
 				repaint();
 			}
