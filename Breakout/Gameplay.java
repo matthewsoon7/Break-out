@@ -12,10 +12,10 @@ import javax.swing.Timer;
 import javax.swing.JPanel;
 
 public class Gameplay extends JPanel implements KeyListener, ActionListener{
-	private int setnum=21;
+	
 	private boolean play = false;
 	private int score=0;
-	private int Bricks=setnum;
+	
 	private Timer timer;
 	private int speed= 8 ;//ball speed#########################################################################################important
 	private int playerX=310;
@@ -24,10 +24,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 	private int ballXdir=-1;
 	private int ballYdir=-2;
 	
+	private int row=20;//---------------------------set width
+	private int collum=20;//---------------------------set length
+	private int setnum=row*collum;
+	private int Bricks=setnum;
 	private MapGenerator map;
 	
 	public Gameplay(){
-		map = new MapGenerator(3,7);
+		map = new MapGenerator(row,collum);
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
@@ -43,11 +47,23 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 		//draw map
 		map.draw((Graphics2D)g);
 		
+		
+		//labels
+		//g.setColor(Color.black);
+	//	g.setFont(new Font("serif",Font.BOLD, 25));
+		//g.drawString("goal",310,560);
+		
+		//g.setColor(Color.red);
+		//g.fillRect(310,560,200,18);
+		//g.fillRect(310,10,69,30);
+		
+		
 		//borders
 		g.setColor(Color.yellow);
 		g.fillRect(0,0,3,592);
 		g.fillRect(0,0,692,3);
 		g.fillRect(691,0,3,592);
+		g.fillRect(66,611,50,50);
 		//scores
 		g.setColor(Color.white);
 		g.setFont(new Font("serif",Font.BOLD, 25));
@@ -71,7 +87,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 			g.drawString("Press the Spacebar to restart", 230, 350);
 }
 		
-		if(ballposY>570){
+		if(ballposY>570){//-------------------add xpos in goal   
 			play=false;
 					ballXdir=0;
 					ballYdir=0;
